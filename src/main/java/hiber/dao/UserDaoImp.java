@@ -23,15 +23,15 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> listUsers() {
+    public List<User> getAllUsers() {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
         return query.getResultList();
     }
 
     @Override
-    public User getByModel(String model, int series) throws NoResultException {
+    public User getUserByCar(String model, int series) throws NoResultException {
         String hql = "SELECT u FROM User u JOIN FETCH u.mCar c WHERE c.model = :model AND c.series = :series";
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql);
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql, User.class);
         query.setParameter("model", model);
         query.setParameter("series", series);
         try {
@@ -41,17 +41,6 @@ public class UserDaoImp implements UserDao {
         }
     }
 
-    public void deleteAllCars() {
-        Session entityManager;
-        Query query = sessionFactory.getCurrentSession().createQuery("DELETE FROM Car");
-        query.executeUpdate();
-    }
-
-    public void deleteAllUser() {
-        Session entityManager;
-        Query query = sessionFactory.getCurrentSession().createQuery("DELETE FROM User");
-        query.executeUpdate();
-    }
 }
 
 

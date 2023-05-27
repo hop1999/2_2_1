@@ -28,7 +28,8 @@ public class User {
    private String email;
 
    @JoinColumn(name = "cars_id")
-   @OneToOne(cascade = CascadeType.ALL)
+   @OneToOne(cascade = CascadeType.ALL) // Почитал, щас 2_2_2 исправлю и еще почитаю, если кртако это -
+   // нарушение целосности, созданине ненужных записей, кроме того может возникнуть сложности с порядком управления
    private Car mCar;
 
    public User() {

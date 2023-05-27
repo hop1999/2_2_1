@@ -5,6 +5,8 @@ import hiber.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Service
@@ -21,14 +23,18 @@ public class UserServiceImp implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<User> listUsers() {
-        return userDao.listUsers();
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getByModel(String model, int series) {
-        return userDao.getByModel(model, series);
+    public User getUserByCar(String model, int series) {
+        try{
+            return userDao.getUserByCar(model, series);
+        } catch (NoResultException e){
+            throw new NoResultException("User with model and series not found " + model + series);
+        }
     }
 }
 

@@ -1,7 +1,6 @@
 package hiber;
 
 import hiber.config.AppConfig;
-import hiber.dao.UserDao;
 import hiber.model.Car;
 import hiber.model.User;
 import hiber.service.UserService;
@@ -34,13 +33,13 @@ public class MainApp {
         userService.add(user3);
         userService.add(user4);
         System.out.println("---------------------------------------------------");
-        User us = userService.getByModel("Telejka", 4);
+        User us = userService.getUserByCar("Telejka", 4);
         System.out.println("Id = " + us.getId());
         System.out.println("First Name = " + us.getFirstName());
         System.out.println("Last Name = " + us.getLastName());
         System.out.println("Email = " + us.getEmail());
 
-        for (User user : userService.listUsers()) {
+        for (User user : userService.getAllUsers()) {
             System.out.println(user + " " + user.mCar());
             System.out.println("1. _____________________________________________");
         }
